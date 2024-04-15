@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AxiosResponse } from "axios";
 import { RoomType } from "../types/generated";
 import { performRequestWithRetry } from "../api/retry";
-import { apiUrl } from "../api/config";
+import { serviceURL } from "../api/config";
 
 export function useGetRooms() {
   const [rooms, setRooms] = useState<RoomType[]>([]);
@@ -25,7 +25,7 @@ export function useGetRooms() {
     };
     try {
       const response = await performRequestWithRetry(
-        `${apiUrl}/roomTypes`,
+        `${serviceURL}/roomTypes`,
         options
       );
       const roomList = (response as AxiosResponse<RoomType[]>).data;
