@@ -6,7 +6,7 @@ import {
   UpdateReservationRequest,
 } from "../types/generated";
 import { performRequestWithRetry } from "../api/retry";
-import { serviceURL } from "../api/config";
+import { apiUrl } from "../api/config";
 
 export function useReserveRoom() {
   const [reservation, setReservation] = useState<Reservation>();
@@ -21,7 +21,7 @@ export function useReserveRoom() {
     };
     try {
       const response = await performRequestWithRetry(
-        `${serviceURL}/`,
+        `${apiUrl}/`,
         options
       );
       setReservation((response as AxiosResponse<Reservation>).data);
@@ -46,7 +46,7 @@ export function useGetReservations() {
     };
     try {
       const response = await performRequestWithRetry(
-        `${serviceURL}/users/${userId}`,
+        `${apiUrl}/users/${userId}`,
         options
       );
       setReservations((response as AxiosResponse<Reservation[]>).data);
@@ -71,7 +71,7 @@ export function useDeleteReservation() {
     };
     try {
       const response = await performRequestWithRetry(
-        `${serviceURL}/${id}`,
+        `${apiUrl}/${id}`,
         options
       );
       setDeleted(true);
@@ -99,7 +99,7 @@ export function useUpdateReservation() {
       data: updateRequest,
     };
     try {
-      await performRequestWithRetry(`${serviceURL}/${id}`, options);
+      await performRequestWithRetry(`${apiUrl}/${id}`, options);
       setUpdated(true);
     } catch (e: any) {
       setError(e);
